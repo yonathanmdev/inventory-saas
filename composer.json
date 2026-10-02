@@ -1,0 +1,25 @@
+{
+    "name": "yonathanmdev/inventory-saas",
+    "description": "Multi-tenant inventory management SaaS",
+    "type": "project",
+    "license": "proprietary",
+   "autoload": {
+    "psr-4": {
+        "App\\": "app/"
+    }
+},
+    "authors": [
+        {
+            "name": "Yonathan Misgan Mengie",
+            "email": "yonathanm.dev@gmail.com"
+        }
+    ],
+    "require": {
+        "ramsey/uuid": "^4.9",
+        "vlucas/phpdotenv": "^5.7",
+        "slim/slim": "^4.15",
+        "slim/psr7": "^1.8",
+        "php-di/php-di": "^7.1",
+        "phpoffice/phpspreadsheet": "^5.10"
+    }
+}

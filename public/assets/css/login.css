@@ -1,0 +1,667 @@
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+
+            --text: #111827;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+
+            --border: #e5e7eb;
+            --border-focus: #93c5fd;
+
+            --background: #f8fafc;
+            --surface: #ffffff;
+
+            --danger: #dc2626;
+            --danger-background: #fef2f2;
+
+            --radius-lg: 20px;
+            --radius-md: 10px;
+
+            --shadow:
+                0 20px 50px rgba(15, 23, 42, 0.08),
+                0 4px 12px rgba(15, 23, 42, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100dvh;
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(37, 99, 235, 0.07),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 90%,
+                    rgba(37, 99, 235, 0.05),
+                    transparent 30%
+                ),
+                var(--background);
+
+            color: var(--text);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding:
+                max(16px, env(safe-area-inset-top))
+                max(16px, env(safe-area-inset-right))
+                max(16px, env(safe-area-inset-bottom))
+                max(16px, env(safe-area-inset-left));
+        }
+
+        .login-wrapper {
+            width: min(100%, 920px);
+        }
+
+        .login-card {
+            width: 100%;
+
+            display: grid;
+            grid-template-columns:
+                minmax(280px, 0.85fr)
+                minmax(360px, 1fr);
+
+            background: var(--surface);
+
+            border: 1px solid rgba(229, 231, 235, 0.9);
+            border-radius: var(--radius-lg);
+
+            overflow: hidden;
+
+            box-shadow: var(--shadow);
+        }
+
+        /* --------------------------------
+           Brand Panel
+        -------------------------------- */
+
+        .brand-panel {
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            padding: clamp(32px, 5vw, 52px);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #eff6ff 0%,
+                    #f8fbff 50%,
+                    #ffffff 100%
+                );
+
+            border-right: 1px solid var(--border);
+        }
+
+        .brand-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: var(--primary);
+            color: white;
+
+            font-size: 20px;
+            font-weight: 800;
+
+            box-shadow:
+                0 8px 20px rgba(37, 99, 235, 0.25);
+        }
+
+        .brand-title {
+            margin: 26px 0 10px;
+
+            font-size: clamp(24px, 3vw, 32px);
+            line-height: 1.15;
+            font-weight: 750;
+            letter-spacing: -0.7px;
+        }
+
+        .brand-description {
+            max-width: 310px;
+
+            margin: 0;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .brand-features {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+
+            margin-top: 34px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            color: #4b5563;
+
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex: 0 0 20px;
+
+            border-radius: 50%;
+
+            background: #dbeafe;
+            color: var(--primary);
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .brand-footer {
+            margin-top: 40px;
+
+            color: var(--text-muted);
+
+            font-size: 12px;
+        }
+
+        /* --------------------------------
+           Form Panel
+        -------------------------------- */
+
+        .form-panel {
+            padding: clamp(32px, 5vw, 56px);
+            display: flex;
+            align-items: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-header {
+            margin-bottom: 30px;
+        }
+
+        .form-header h1 {
+            margin: 0 0 8px;
+
+            font-size: clamp(24px, 3vw, 30px);
+            line-height: 1.2;
+
+            font-weight: 750;
+            letter-spacing: -0.6px;
+        }
+
+        .form-header p {
+            margin: 0;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* --------------------------------
+           Error
+        -------------------------------- */
+
+        .alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            margin-bottom: 22px;
+            padding: 12px 14px;
+
+            border: 1px solid #fecaca;
+            border-radius: var(--radius-md);
+
+            background: var(--danger-background);
+            color: #991b1b;
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .alert-icon {
+            flex: 0 0 auto;
+
+            width: 18px;
+            height: 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #fee2e2;
+
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        /* --------------------------------
+           Form
+        -------------------------------- */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #374151;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+
+            transform: translateY(-50%);
+
+            width: 18px;
+            height: 18px;
+
+            color: #9ca3af;
+
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 48px;
+
+            padding: 0 14px 0 44px;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+
+            background: #ffffff;
+            color: var(--text);
+
+            font-family: inherit;
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                border-color 0.15s ease,
+                box-shadow 0.15s ease,
+                background-color 0.15s ease;
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-input:hover {
+            border-color: #d1d5db;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.10);
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+
+            transform: translateY(-50%);
+
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 0;
+            border-radius: 7px;
+
+            background: transparent;
+            color: #9ca3af;
+
+            cursor: pointer;
+
+            font-size: 12px;
+        }
+
+        .password-toggle:hover {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .password-input {
+            padding-right: 48px;
+        }
+
+        /* --------------------------------
+           Form Options
+        -------------------------------- */
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin: 2px 0 24px;
+        }
+
+        .remember {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--text-secondary);
+
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .remember input {
+            width: 15px;
+            height: 15px;
+
+            margin: 0;
+
+            accent-color: var(--primary);
+        }
+
+        .forgot-link {
+            color: var(--primary);
+
+            font-size: 13px;
+            font-weight: 600;
+
+            text-decoration: none;
+        }
+
+        .forgot-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* --------------------------------
+           Button
+        -------------------------------- */
+
+        .login-button {
+            width: 100%;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 0;
+            border-radius: var(--radius-md);
+
+            background: var(--primary);
+            color: white;
+
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 650;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 4px 10px rgba(37, 99, 235, 0.18);
+
+            transition:
+                background-color 0.15s ease,
+                transform 0.1s ease,
+                box-shadow 0.15s ease;
+        }
+
+        .login-button:hover {
+            background: var(--primary-dark);
+
+            box-shadow:
+                0 6px 16px rgba(37, 99, 235, 0.22);
+        }
+
+        .login-button:active {
+            transform: translateY(1px);
+        }
+
+        .login-button:focus-visible {
+            outline: 3px solid rgba(37, 99, 235, 0.20);
+            outline-offset: 2px;
+        }
+
+        .button-spinner {
+            display: none;
+
+            width: 16px;
+            height: 16px;
+
+            margin-right: 8px;
+
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            border-top-color: white;
+
+            border-radius: 50%;
+
+            animation: spin 0.7s linear infinite;
+        }
+
+        .login-button.loading .button-spinner {
+            display: block;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* --------------------------------
+           Footer
+        -------------------------------- */
+
+        .form-footer {
+            margin-top: 24px;
+
+            text-align: center;
+
+            color: var(--text-muted);
+
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* --------------------------------
+           Responsive
+        -------------------------------- */
+
+        @media (max-width: 760px) {
+            body {
+                align-items: flex-start;
+
+                padding-top: max(
+                    24px,
+                    env(safe-area-inset-top)
+                );
+                padding-bottom: max(
+                    24px,
+                    env(safe-area-inset-bottom)
+                );
+            }
+
+            .login-wrapper {
+                width: min(100%, 520px);
+            }
+
+            .login-card {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-panel {
+                padding: 28px 28px 24px;
+
+                border-right: 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .brand-title {
+                margin-top: 18px;
+            }
+
+            .brand-features {
+                display: none;
+            }
+
+            .brand-footer {
+                margin-top: 22px;
+            }
+
+            .form-panel {
+                padding: 32px 28px 34px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding:
+                    max(12px, env(safe-area-inset-top))
+                    max(12px, env(safe-area-inset-right))
+                    max(12px, env(safe-area-inset-bottom))
+                    max(12px, env(safe-area-inset-left));
+            }
+
+            .login-card {
+                border-radius: 16px;
+            }
+
+            .brand-panel {
+                padding: 24px 22px 20px;
+            }
+
+            .brand-logo {
+                width: 44px;
+                height: 44px;
+
+                border-radius: 11px;
+            }
+
+            .brand-title {
+                font-size: 23px;
+            }
+
+            .form-panel {
+                padding: 28px 22px 30px;
+            }
+
+            .form-header {
+                margin-bottom: 24px;
+            }
+
+            .form-options {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .forgot-link {
+                align-self: flex-start;
+            }
+        }
+
+        @media (max-height: 700px) and (min-width: 761px) {
+            .brand-panel,
+            .form-panel {
+                padding-top: 30px;
+                padding-bottom: 30px;
+            }
+
+            .brand-features {
+                margin-top: 22px;
+                gap: 8px;
+            }
+
+            .form-header {
+                margin-bottom: 22px;
+            }
+
+            .form-group {
+                margin-bottom: 16px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }

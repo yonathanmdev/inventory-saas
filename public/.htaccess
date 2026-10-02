@@ -1,0 +1,21 @@
+Options -Indexes -MultiViews
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Send everything that is not a real file to Slim
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Block dotfiles such as .env and .git (allow /.well-known for Let's Encrypt)
+<IfModule mod_rewrite.c>
+    RewriteRule "(^|/)\.(?!well-known)" - [F,L]
+</IfModule>
+
+# Harmless on every environment, so no APP_ENV logic needed
+<IfModule mod_headers.c>
+    Header always unset X-Powered-By
+    Header always set X-Content-Type-Options "nosniff"
+</IfModule>
