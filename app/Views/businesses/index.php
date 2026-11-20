@@ -19,7 +19,7 @@ ob_start();
     </div>
 
     <a
-        href="/system-admin/businesses/create"
+        href="<?= BASE ?>/system-admin/businesses/create"
         class="btn btn-primary"
     >
         <i class="bi bi-building-add me-1"></i>
@@ -73,7 +73,7 @@ ob_start();
                 </p>
 
                 <a
-                    href="/system-admin/businesses/create"
+                    href="<?= BASE ?>/system-admin/businesses/create"
                     class="btn btn-primary"
                 >
                     <i class="bi bi-plus-lg me-1"></i>
@@ -307,7 +307,7 @@ ob_start();
                                     </a>
 
                                     <a
-    href="/system-admin/businesses/<?= $business['uuid'] ?>/edit"
+    href="<?= BASE ?>/system-admin/businesses/<?= $business['uuid'] ?>/edit"
     class="btn btn-sm btn-outline-primary"
     title="Edit Business"
 >

@@ -19,7 +19,14 @@ class UserModel
         $stmt->execute([$email, $businessId]);
         return $stmt->fetch() ?: null;
     }
-
+  public function findById(int $id, ?int $businessId): ?array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT * FROM users WHERE id = ? AND business_id = ? LIMIT 1"
+        );
+        $stmt->execute([$id, $businessId]);
+        return $stmt->fetch() ?: null;
+    }
     public function findByUsername(string $username): ?array
     {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE username = ? LIMIT 1");
@@ -72,41 +79,56 @@ class UserModel
         return $stmt->fetchAll();
     }
 
-    public function findForLogin(string $login): ?array
-    {
-        $sql = "
-            SELECT
-                u.id,
-                u.uuid,
-                u.business_id,
-                u.role_id,
-                u.is_system_admin,
-                u.full_name,
-                u.email,
-                u.username,
-                u.password_hash,
-                u.is_active,
-                u.last_login_at,
-                r.name AS role_name
-            FROM users u
-            LEFT JOIN roles r
-                ON r.id = u.role_id
-            WHERE u.username = :login_username
-               OR u.email = :login_email
-            LIMIT 1
-        ";
+   public function findForLogin(string $login): ?array
+{
+    $sql = "
+        SELECT
+            u.id,
+            u.uuid,
+            u.business_id,
+            u.role_id,
+            u.is_system_admin,
+            u.full_name,
+            u.email,
+            u.username,
+            u.password_hash,
+            u.is_active,
+            u.last_login_at,
 
-        $stmt = $this->db->prepare($sql);
+            r.name AS role_name,
 
-        $stmt->execute([
-            'login_username' => $login,
-            'login_email' => $login
-        ]);
+            b.uuid AS business_uuid,
+            b.name AS business_name,
+            b.name_amharic AS business_name_amharic,
+            b.email AS business_email,
+            b.phone AS business_phone,
+            b.is_active AS business_is_active
 
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        FROM users u
 
-        return $user ?: null;
-    }
+        LEFT JOIN roles r
+            ON r.id = u.role_id
+
+        LEFT JOIN businesses b
+            ON b.id = u.business_id
+
+        WHERE u.username = :login_username
+           OR u.email = :login_email
+
+        LIMIT 1
+    ";
+
+    $stmt = $this->db->prepare($sql);
+
+    $stmt->execute([
+        'login_username' => $login,
+        'login_email'    => $login
+    ]);
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $user ?: null;
+}
 
     public function updateLastLogin(int $userId): bool
     {

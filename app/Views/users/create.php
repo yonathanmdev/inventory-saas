@@ -615,7 +615,7 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
 
             const response = await fetch(
-                '/system-admin/users/businesses/'
+                '<?= BASE ?>/system-admin/users/businesses/'
                 + encodeURIComponent(businessId)
                 + '/roles',
                 {

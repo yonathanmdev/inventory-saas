@@ -28,7 +28,7 @@ ob_start();
 
 
     <a
-        href="/categories"
+        href="<?= BASE ?>/categories"
         class="btn btn-outline-secondary"
     >
         <i class="bi bi-arrow-left me-1"></i>
@@ -57,7 +57,7 @@ ob_start();
 
         <form
             method="POST"
-            action="/categories"
+            action="<?= BASE ?>/categories"
         >
 
             <input
@@ -219,7 +219,7 @@ ob_start();
             <div class="d-flex justify-content-end gap-2">
 
                 <a
-                    href="/categories"
+                    href="<?= BASE ?>/categories"
                     class="btn btn-light"
                 >
                     Cancel

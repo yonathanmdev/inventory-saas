@@ -50,7 +50,7 @@ ob_start();
     </div>
 
     <?php if (PermissionHelper::can('products.create')): ?>
-        <a href="/products/create" class="btn btn-primary">
+        <a href="<?= BASE ?>/products/create" class="btn btn-primary">
             <i class="bi bi-plus-lg me-1"></i>
             የንብረት ዓይነት ይመዝግቡ
         </a>
@@ -89,7 +89,7 @@ ob_start();
         <!-- Toolbar -->
         <div class="d-flex flex-wrap gap-2 justify-content-between mb-3">
 
-            <form method="get" action="/products" class="d-flex flex-wrap gap-2">
+            <form method="get" action="<?= BASE ?>/products" class="d-flex flex-wrap gap-2">
                 <input
                     type="text"
                     name="q"
@@ -112,7 +112,7 @@ ob_start();
                 </button>
 
                 <?php if ($q !== ''): ?>
-                    <a href="/products?per_page=<?= $perPage ?>"
+                    <a href="<?= BASE ?>/products?per_page=<?= $perPage ?>"
                        class="btn btn-outline-secondary">Clear</a>
                 <?php endif; ?>
             </form>
@@ -151,7 +151,7 @@ ob_start();
                     <p class="text-muted mb-4">የመጀመሪያውን የንብረት ዓይነት ይመዝግቡ.</p>
 
                     <?php if (PermissionHelper::can('products.create')): ?>
-                        <a href="/products/create" class="btn btn-primary">
+                        <a href="<?= BASE ?>/products/create" class="btn btn-primary">
                             <i class="bi bi-plus-lg me-1"></i>
                             የንብረት ዓይነት ይመዝግቡ
                         </a>
@@ -212,14 +212,14 @@ ob_start();
                                 <?php if (PermissionHelper::can('products.update')): ?>
                                     <div class="btn-group btn-group-sm">
                                     <?php if ($isActive): ?>
-                                        <a href="/products/<?= urlencode($product['uuid']) ?>/edit"
+                                        <a href="<?= BASE ?>/products/<?= urlencode($product['uuid']) ?>/edit"
                                            class="btn btn-outline-secondary"
                                            title="Edit product">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <?php endif; ?>
                                         <form method="POST"
-                                              action="/products/<?= urlencode($product['uuid']) ?>/<?= $isActive ? 'deactivate' : 'activate' ?>"
+                                              action="<?= BASE ?>/products/<?= urlencode($product['uuid']) ?>/<?= $isActive ? 'deactivate' : 'activate' ?>"
                                               class="d-inline">
                                             <input type="hidden" name="csrf_token"
                                                    value="<?= $e($_SESSION['csrf_token'] ?? '') ?>">

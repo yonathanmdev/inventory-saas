@@ -33,7 +33,7 @@ ob_start();
     ): ?>
 
         <a
-            href="/categories/create"
+            href="<?= BASE ?>/categories/create"
             class="btn btn-primary"
         >
 
@@ -185,7 +185,7 @@ ob_start();
                                 ): ?>
 
                                     <a
-                                        href="/categories/<?= (int) $category['id'] ?>/edit"
+                                        href="<?= BASE ?>/categories/<?= (int) $category['id'] ?>/edit"
                                         class="btn btn-sm btn-outline-primary"
                                         title="Edit"
                                     >

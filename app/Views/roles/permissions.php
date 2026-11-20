@@ -20,7 +20,7 @@ ob_start();
     </div>
 
     <a
-        href="/system-admin/roles"
+        href="<?= BASE ?>/system-admin/roles"
         class="btn btn-outline-secondary"
     >
         <i class="bi bi-arrow-left me-1"></i>
@@ -32,7 +32,7 @@ ob_start();
 
 <form
     method="POST"
-    action="/system-admin/roles/<?= (int) $role['id'] ?>/permissions"
+    action="<?= BASE ?>/system-admin/roles/<?= (int) $role['id'] ?>/permissions"
 >
   <input
                 type="hidden"
@@ -113,7 +113,7 @@ ob_start();
         <div class="card-footer bg-white d-flex justify-content-end gap-2">
 
             <a
-                href="/system-admin/roles"
+                href="<?= BASE ?>/system-admin/roles"
                 class="btn btn-outline-secondary"
             >
                 Cancel

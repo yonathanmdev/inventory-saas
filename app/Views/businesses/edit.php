@@ -33,7 +33,7 @@ $flash = \App\Helpers\FlashHelper::get();
 </div>
 
 <a
-    href="/system-admin/businesses"
+    href="<?= BASE ?>/system-admin/businesses"
     class="btn btn-outline-secondary"
 >
     <i class="bi bi-arrow-left"></i>
@@ -76,7 +76,7 @@ $flash = \App\Helpers\FlashHelper::get();
 
     <form
         method="POST"
-        action="/system-admin/businesses/<?= $business['uuid'] ?>"
+        action="<?= BASE ?>/system-admin/businesses/<?= $business['uuid'] ?>"
         enctype="multipart/form-data"
     >
 
@@ -89,7 +89,25 @@ $flash = \App\Helpers\FlashHelper::get();
 
         <div class="row">
 
-            <!-- Business Name -->
+        <!-- Business Name -->
+            <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                  የተቋሙ ስም
+                    <span class="text-danger">*</span>
+                </label>
+
+                <input
+                    type="text"
+                    name="name_amharic"
+                    class="form-control"
+                    required
+                    maxlength="200"
+                    value="<?= htmlspecialchars($business['name_amharic'] ?? '') ?>"
+                >
+
+            </div>   
+        <!-- Business Name -->
             <div class="col-md-6 mb-3">
 
                 <label class="form-label">
@@ -176,7 +194,7 @@ $flash = \App\Helpers\FlashHelper::get();
             </div>
 
          <img
-    src="/businesses/<?= htmlspecialchars($business['uuid'], ENT_QUOTES, 'UTF-8') ?>/logo"
+    src="<?= BASE ?>/businesses/<?= htmlspecialchars($business['uuid'], ENT_QUOTES, 'UTF-8') ?>/logo"
     alt="Business logo"
     class="business-logo-preview"
 >
@@ -221,7 +239,7 @@ $flash = \App\Helpers\FlashHelper::get();
         <div class="d-flex justify-content-end gap-2">
 
             <a
-                href="/system-admin/businesses"
+                href="<?= BASE ?>/system-admin/businesses"
                 class="btn btn-secondary"
             >
                 <i class="bi bi-x-circle"></i>

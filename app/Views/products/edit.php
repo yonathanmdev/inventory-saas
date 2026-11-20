@@ -18,7 +18,7 @@ ob_start();
     </div>
 
     <a
-        href="/products"
+        href="<?= BASE ?>/products"
         class="btn btn-outline-secondary"
     >
         <i class="bi bi-arrow-left"></i>
@@ -59,7 +59,7 @@ ob_start();
 
         <form
             method="POST"
-            action="/products/<?= urlencode($product['uuid']) ?>"
+            action="<?= BASE ?>/products/<?= urlencode($product['uuid']) ?>"
         >
 
             <input
@@ -190,7 +190,7 @@ ob_start();
             <div class="d-flex justify-content-end gap-2">
 
                 <a
-                    href="/products"
+                    href="<?= BASE ?>/products"
                     class="btn btn-secondary"
                 >
                     Cancel

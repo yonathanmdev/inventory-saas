@@ -7,7 +7,8 @@ use App\Controllers\RoleController;
 use App\Controllers\UserController;
 use App\Controllers\CategoryController;
 use App\Controllers\ProductController;
-
+use App\Controllers\StockInController;
+use App\Controllers\StockOutRequestController;
 use App\Helpers\AuthHelper;
 
 use App\Middleware\AuthMiddleware;
@@ -46,7 +47,7 @@ return function ($app) {
                         ? '/system-admin'
                         : '/dashboard'
                 )
-                : '/login';
+                : BASE . '/login';
 
             return $response
                 ->withHeader('Location', $target)
@@ -129,12 +130,7 @@ return function ($app) {
         |--------------------------------------------------------------------------
         */
 
-$group->get(
-    '/businesses/{uuid}/logo',
-    [BusinessController::class, 'logo']
-)->add(
-    new PermissionMiddleware('businesses.update')
-);
+
         /*
          * User list
          */
@@ -312,31 +308,75 @@ $group->post(
     new PermissionMiddleware('products.update')
 );
 
-        /*
-        |--------------------------------------------------------------------------
-        | Orders
-        |--------------------------------------------------------------------------
-        */
+$group->get('/stock-in', [StockInController::class, 'index'])->add(
+    new PermissionMiddleware('stock_in.view')
+);
+$group->get('/stock-in/create', [StockInController::class, 'create'])->add(
+    new PermissionMiddleware('stock_in.create')
+);
+$group->post('/stock-in', [StockInController::class, 'store'])->add(
+    new PermissionMiddleware('stock_in.create')
+);
+$group->get('/stock-in/{uuid}', [StockInController::class, 'show'])->add(
+    new PermissionMiddleware('stock_in.view')
+);
 
-        /*
-        | Example:
-        |
-        | $group->get(
-        |     '/orders',
-        |     [OrderController::class, 'index']
-        | )->add(
-        |     new PermissionMiddleware('orders.view')
-        | );
-        |
-        */
+$group->get('/stock-in/{uuid}/edit', [StockInController::class, 'edit'])->add(
+    new PermissionMiddleware('stock_in.update')
+);
+// ይህንን አዲስ ራውት ጨምር (ለ Update ፖስት/ፑት ጥያቄ ማስተናገጃ)
+$group->map(['POST', 'PUT'], '/stock-in/{uuid}', [StockInController::class, 'update'])->add(
+    new PermissionMiddleware('stock_in.update')
+);
 
+// ዝርዝር (የራስን ወይም ሁሉንም፣ በ view_all ይወሰናል)
+$group->get('/stock-out/requests', [StockOutRequestController::class, 'index'])->add(
+    new PermissionMiddleware('stock_out.view')
+);
 
-        /*
-        |--------------------------------------------------------------------------
-        | Suppliers
-        |--------------------------------------------------------------------------
-        */
+// /create ከ /{uuid} በፊት መሆን አለበት
+$group->get('/stock-out/requests/create', [StockOutRequestController::class, 'create'])->add(
+    new PermissionMiddleware('stock_out.create')
+);
+$group->post('/stock-out/requests', [StockOutRequestController::class, 'store'])->add(
+    new PermissionMiddleware('stock_out.create')
+);
 
+$group->get('/stock-out/requests/{uuid}', [StockOutRequestController::class, 'show'])->add(
+    new PermissionMiddleware('stock_out.view')
+);
+$group->get('/stock-out/requests/{uuid}/print', [StockOutRequestController::class, 'printView'])->add(
+    new PermissionMiddleware('stock_out.view')
+);
+$group->post('/stock-out/requests/{uuid}/approve', [StockOutRequestController::class, 'approve'])->add(
+    new PermissionMiddleware('stock_out.approve')
+);
+$group->post('/stock-out/requests/{uuid}/reject', [StockOutRequestController::class, 'reject'])->add(
+    new PermissionMiddleware('stock_out.approve')
+);
+$group->post('/stock-out/requests/{uuid}/issue', [StockOutRequestController::class, 'issue'])->add(
+    new PermissionMiddleware('stock_out.issue')
+);
+
+$group->get('/stock-out/requests/{uuid}/edit', [StockOutRequestController::class, 'edit'])->add(
+    new PermissionMiddleware('stock_out.update')
+);
+$group->post('/stock-out/requests/{uuid}/update', [StockOutRequestController::class, 'update'])->add(
+    new PermissionMiddleware('stock_out.update')
+);
+
+$group->get('/stock-out/issue/{uuid}', [StockOutRequestController::class, 'showIssueForm'])->add(
+    new PermissionMiddleware('stock_out.issue')
+);
+
+$group->post('/stock-out/issue/{uuid}', [StockOutRequestController::class, 'issue'])->add(
+    new PermissionMiddleware('stock_out.issue')
+);
+$group->get('/stock-out/requests/{uuid}/model22', [StockOutRequestController::class, 'model22'])->add(
+    new PermissionMiddleware('stock_out.issue')
+);
+
+$group->get('/businesses/{uuid}/logo', [BusinessController::class, 'logo']);
         /*
         | Example:
         |

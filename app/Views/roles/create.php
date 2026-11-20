@@ -20,7 +20,7 @@ ob_start();
     </div>
 
     <a
-        href="/system-admin/roles"
+        href="<?= BASE ?>/system-admin/roles"
         class="btn btn-outline-secondary"
     >
         <i class="bi bi-arrow-left me-1"></i>
@@ -43,7 +43,7 @@ ob_start();
 
         <form
             method="POST"
-            action="/system-admin/roles"
+            action="<?= BASE ?>/system-admin/roles"
         >
   <input
                 type="hidden"
@@ -116,7 +116,7 @@ ob_start();
             <div class="d-flex justify-content-end gap-2 mt-4">
 
                 <a
-                    href="/system-admin/roles"
+                    href="<?= BASE ?>/system-admin/roles"
                     class="btn btn-outline-secondary"
                 >
                     Cancel

@@ -62,6 +62,7 @@ class ProductModel
                 p.is_active,
                 p.created_at,
                 p.updated_at,
+                p.is_serialized,
 
                 c.name AS category_name
 
@@ -150,7 +151,7 @@ public function findPageByBusinessId(
         SELECT
             p.id, p.uuid, p.business_id, p.category_id,
             p.name, p.description, p.is_active,
-            p.created_at, p.updated_at,
+            p.created_at, p.updated_at, p.is_serialized,
             c.name AS category_name
         " . self::FROM_SQL . "
         WHERE {$where}
@@ -186,6 +187,7 @@ public function findAllForExport(int $businessId, string $search = '', string $s
         SELECT
             p.id, p.name, p.description, p.is_active,
             p.created_at, p.updated_at,
+             p.is_serialized,
             c.name AS category_name
         " . self::FROM_SQL . "
         WHERE {$where}
@@ -215,6 +217,8 @@ public function findAllForExport(int $businessId, string $search = '', string $s
                 p.is_active,
                 p.created_at,
                 p.updated_at,
+                p.is_serialized,
+
 
                 c.name AS category_name
 
@@ -352,4 +356,65 @@ public function findAllForExport(int $businessId, string $search = '', string $s
             'business_id' => $businessId
         ]);
     }
+    /** @return array<string,int|string> uuid => id (only active products of this business) */
+public function findIdsByUuids(array $uuids, int $businessId): array
+{
+    if (!$uuids) {
+        return [];
+    }
+
+    $in   = implode(',', array_fill(0, count($uuids), '?'));
+    $stmt = $this->db->prepare("
+        SELECT uuid, id FROM products
+        WHERE business_id = ? AND is_active = 1 AND uuid IN ($in)
+    ");
+    $stmt->execute([$businessId, ...array_values($uuids)]);
+
+    return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+}
+/**
+ * @return array<string,array{
+ *     id:int,
+ *     uuid:string,
+ *     is_serialized:int
+ * }>
+ */
+public function findDetailsByUuids(
+    array $uuids,
+    int $businessId
+): array {
+    if (!$uuids) {
+        return [];
+    }
+
+    $in = implode(',', array_fill(0, count($uuids), '?'));
+
+    $stmt = $this->db->prepare("
+        SELECT
+            id,
+            uuid,
+            is_serialized
+        FROM products
+        WHERE business_id = ?
+          AND is_active = 1
+          AND uuid IN ($in)
+    ");
+
+    $stmt->execute([
+        $businessId,
+        ...array_values($uuids),
+    ]);
+
+    $result = [];
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $result[$row['uuid']] = [
+            'id' => (int) $row['id'],
+            'uuid' => (string) $row['uuid'],
+            'is_serialized' => (int) $row['is_serialized'],
+        ];
+    }
+
+    return $result;
+}
 }

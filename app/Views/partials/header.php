@@ -17,7 +17,7 @@
         <button class="sidebar-toggle-btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
             <i class="bi bi-list"></i>
         </button>
-        <a href="/dashboard" class="brand">
+        <a href="<?= BASE ?>/dashboard" class="brand">
             <span class="brand-icon">IMS</span>
             <span class="d-none d-sm-inline">Inventory Management System</span>
         </a>
@@ -29,23 +29,51 @@
             <?= htmlspecialchars($_SESSION['business_name'] ?? '') ?>
         </span>
 
+        <?php 
+            // Calculate total count for the bell badge
+            $totalNotifications = (int)($lowStockCount ?? 0) + (int)($pendingCount ?? 0);
+        ?>
+
         <div class="dropdown">
-            <button class="header-icon-btn" data-bs-toggle="dropdown">
+            <button class="header-icon-btn position-relative" data-bs-toggle="dropdown">
                 <i class="bi bi-bell"></i>
-                <?php if (!empty($lowStockCount)): ?>
-                    <span class="header-badge"><?= (int) $lowStockCount ?></span>
+                <?php if ($totalNotifications > 0): ?>
+                    <span class="header-badge"><?= $totalNotifications ?></span>
                 <?php endif; ?>
             </button>
             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                 <li><h6 class="dropdown-header">Notifications</h6></li>
+
+                <!-- Low Stock Notification -->
                 <?php if (!empty($lowStockCount)): ?>
                     <li>
-                        <a class="dropdown-item" href="/products?filter=low_stock">
+                        <a class="dropdown-item" href="<?= BASE ?>/products?filter=low_stock">
                             <i class="bi bi-exclamation-triangle text-warning me-2"></i>
                             <?= (int) $lowStockCount ?> product(s) low on stock
                         </a>
                     </li>
-                <?php else: ?>
+                <?php endif; ?>
+
+                <!-- Stock-Out Request Count Notification -->
+                <?php if (!empty($pendingCount) && $pendingCount > 0): ?>
+                    <?php if (!empty($lowStockCount)): ?>
+                        <li><hr class="dropdown-divider"></li>
+                    <?php endif; ?>
+                    <li>
+                       <a class="dropdown-item py-2" href="<?= BASE ?>/stock-out/requests?status=pending">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <span>
+                                    <i class="bi bi-box-arrow-up text-primary me-2"></i>
+                                    <?= (!empty($canViewAll) && $canViewAll) ? 'Pending Approvals' : 'Your Pending Requests' ?>
+                                </span>
+                                <span class="badge bg-danger rounded-pill"><?= (int) $pendingCount ?></span>
+                            </div>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <!-- Fallback if completely caught up -->
+                <?php if (empty($lowStockCount) && (empty($pendingCount) || $pendingCount === 0)): ?>
                     <li><span class="dropdown-item-text text-muted small">You're all caught up</span></li>
                 <?php endif; ?>
             </ul>
@@ -60,18 +88,18 @@
                 </span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                <li><a class="dropdown-item" href="/profile"><i class="bi bi-person me-2"></i>Profile</a></li>
-                <li><a class="dropdown-item" href="/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                <li><a class="dropdown-item" href="<?= BASE ?>/profile"><i class="bi bi-person me-2"></i>Profile</a></li>
+                <li><a class="dropdown-item" href="<?= BASE ?>/settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-    <form method="POST" action="/logout" class="d-inline w-100">
-        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
-        <button type="submit" class="dropdown-item text-danger">
-            <i class="bi bi-box-arrow-right me-2"></i>
-            Logout
-        </button>
-    </form>
-</li>
+                    <form method="POST" action="<?= BASE ?>/logout" class="d-inline w-100">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+                        <button type="submit" class="dropdown-item text-danger">
+                            <i class="bi bi-box-arrow-right me-2"></i>
+                            Logout
+                        </button>
+                    </form>
+                </li>
             </ul>
         </div>
     </div>

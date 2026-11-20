@@ -15,7 +15,7 @@ class SystemAdminMiddleware
     ): ResponseInterface {
 
         if (!AuthHelper::check()) {
-            return AuthMiddleware::denyAccess($request, '/login', 'authentication_required');
+            return AuthMiddleware::denyAccess($request, BASE . '/login', 'authentication_required');
         }
 
         if ((int) ($_SESSION['is_system_admin'] ?? 0) !== 1) {

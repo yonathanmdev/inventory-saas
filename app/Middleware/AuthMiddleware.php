@@ -16,7 +16,7 @@ class AuthMiddleware
     ): ResponseInterface {
 
         if (!AuthHelper::check()) {
-            return $this->denyAccess($request, '/login', 'authentication_required');
+            return $this->denyAccess($request, BASE . '/login', 'authentication_required');
         }
 
         return $handler->handle($request);

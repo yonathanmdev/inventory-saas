@@ -4,7 +4,7 @@ use App\Middleware\CsrfMiddleware;
 use App\Middleware\SecurityHeadersMiddleware;
 use Slim\Exception\HttpException;
 use Slim\Factory\AppFactory;
-
+use App\Middleware\BasePathMiddleware;
 require __DIR__ . '/../vendor/autoload.php';
 
 /*
@@ -15,7 +15,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
-
+define('BASE', rtrim($_ENV['APP_BASE_PATH'] ?? '', '/'));
 $production = ($_ENV['APP_ENV'] ?? 'production') !== 'local';
 
 /*
@@ -72,7 +72,7 @@ $app = AppFactory::create();
 | Routing Middleware
 |--------------------------------------------------------------------------
 */
-
+$app->setBasePath(BASE);
 $app->addRoutingMiddleware();
 
 /*
@@ -153,7 +153,7 @@ $app->add(
         cspReportOnly: false
     )
 );
-
+$app->add(new BasePathMiddleware());
 /*
 |--------------------------------------------------------------------------
 | Routes

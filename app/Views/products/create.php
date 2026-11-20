@@ -16,7 +16,7 @@ ob_start();
     </div>
 
     <a
-        href="/products"
+        href="<?= BASE ?>/products"
         class="btn btn-outline-secondary"
     >
         <i class="bi bi-arrow-left"></i>
@@ -53,7 +53,7 @@ ob_start();
 
         <form
             method="POST"
-            action="/products"
+            action="<?= BASE ?>/products"
         >
 
             <input
@@ -173,7 +173,7 @@ ob_start();
             <div class="d-flex justify-content-end gap-2">
 
                 <a
-                    href="/products"
+                    href="<?= BASE ?>/products"
                     class="btn btn-secondary"
                 >
                     <i class="bi bi-x-lg me-1"></i>

@@ -23,7 +23,7 @@ class PermissionMiddleware
 
     if (!AuthHelper::check()) {
         return (new Response())
-            ->withHeader('Location', '/login')
+            ->withHeader('Location', BASE . '/login')
             ->withStatus(302);
     }
 

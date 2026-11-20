@@ -145,6 +145,7 @@ class AuthService
             $_SESSION['user_id'],
             $_SESSION['user_uuid'],
             $_SESSION['business_id'],
+            $_SESSION['business_name'],
             $_SESSION['role_id'],
             $_SESSION['role_name'],
             $_SESSION['full_name'],
@@ -167,7 +168,8 @@ class AuthService
         $_SESSION['business_id'] = $user['business_id'] !== null
             ? (int) $user['business_id']
             : null;
-
+        $_SESSION['business_name'] = $user['business_name'];
+        $_SESSION['business_name_amharic'] = $user['business_name_amharic'];
         $_SESSION['role_id'] = (int) $user['role_id'];
 
         $_SESSION['role_name'] = $user['role_name'];

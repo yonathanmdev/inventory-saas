@@ -24,7 +24,9 @@ class BusinessRegistrationService
     ): array {
 
         $name = trim($data['name'] ?? '');
+        $nameAmharic = trim($data['name_amharic'] ?? '');
         $email = trim($data['email'] ?? '');
+
 
         if ($name === '') {
             return [
@@ -32,7 +34,12 @@ class BusinessRegistrationService
                 'message' => 'Business name is required.'
             ];
         }
-
+if ($nameAmharic === '') {
+            return [
+                'success' => false,
+                'message' => 'Business name (Amharic) is required.'
+            ];
+        }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return [
                 'success' => false,
@@ -68,6 +75,7 @@ class BusinessRegistrationService
             $businessData = [
                 'uuid'        => $businessUuid,
                 'name'        => $name,
+                'name_amharic' => $nameAmharic,
                 'email'       => $email,
                 'phone'       => $phone,
                 'address'     => $address,
@@ -167,6 +175,8 @@ public function update(
 
     $name =
         trim($data['name'] ?? '');
+    $nameAmharic =
+        trim($data['name_amharic'] ?? '');
 
     $email =
         trim($data['email'] ?? '');
@@ -187,6 +197,12 @@ public function update(
         return [
             'success' => false,
             'message' => 'Business name is required.'
+        ];
+    }
+    if ($nameAmharic === '') {
+        return [
+            'success' => false,
+            'message' => 'Business name (Amharic) is required.'
         ];
     }
 
@@ -253,6 +269,7 @@ public function update(
                 $businessId,
                 [
                     'name'        => $name,
+                    'name_amharic' => $nameAmharic,
                     'email'       => $email,
                     'phone'       => $phone,
                     'address'     => $address,
@@ -343,6 +360,8 @@ public function update(
             'old_values' => [
                 'name' =>
                     $oldBusiness['name'],
+                'name_amharic' =>
+                    $oldBusiness['name_amharic'],
 
                 'email' =>
                     $oldBusiness['email'],
@@ -366,6 +385,8 @@ public function update(
             'new_values' => [
                 'name' =>
                     $name,
+                'name_amharic' =>
+                    $name_amharic,
 
                 'email' =>
                     $email,

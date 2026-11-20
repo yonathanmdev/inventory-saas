@@ -154,6 +154,8 @@ public function update($request, $response, array $args)
                 [
                     'name' =>
                         trim($data['name'] ?? ''),
+                    'name_amharic' =>
+                        trim($data['name_amharic'] ?? ''),
 
                     'email' =>
                         trim($data['email'] ?? ''),

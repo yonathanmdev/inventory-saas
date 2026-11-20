@@ -3,14 +3,15 @@
 namespace App\Controllers;
 
 use App\Models\DashboardModel;
+use App\Services\StockOutRequestService;
 
 class DashboardController
 {
     public function __construct(
-        private DashboardModel $dashboardModel
+        private DashboardModel $dashboardModel,
+        private StockOutRequestService $stockOutService
     ) {
     }
-
 
     /**
      * Normal business-user dashboard.
@@ -22,6 +23,7 @@ class DashboardController
          * stored in their authenticated session.
          */
         $businessId = (int) ($_SESSION['business_id'] ?? 0);
+        $userId = (int) ($_SESSION['user_id'] ?? 0);
 
         if ($businessId <= 0) {
             $response->getBody()->write(
@@ -31,10 +33,8 @@ class DashboardController
             return $response->withStatus(403);
         }
 
-
         $statistics = $this->dashboardModel
             ->getBusinessDashboardStatistics($businessId);
-
 
         $totalProducts =
             $statistics['total_products'] ?? 0;
@@ -51,7 +51,12 @@ class DashboardController
         $recentActivity =
             $statistics['recent_activity'] ?? [];
 
-
+        // Fetch stock-out notification summary (handles permission checks internally)
+        $notificationData = $this->stockOutService->getNotificationSummary($businessId);
+        
+        $pendingCount = $notificationData['count'];
+        $canViewAll   = $notificationData['can_view_all'];
+$totalNotifications = (int)($lowStockCount ?? 0) + (int)($pendingCount ?? 0);
         ob_start();
 
         require __DIR__ .
@@ -64,7 +69,6 @@ class DashboardController
         return $response;
     }
 
-
     /**
      * System Administrator dashboard.
      */
@@ -72,7 +76,6 @@ class DashboardController
     {
         $statistics = $this->dashboardModel
             ->getSystemAdminStatistics();
-
 
         $businessCount =
             $statistics['business_count'] ?? 0;
@@ -82,7 +85,6 @@ class DashboardController
 
         $userCount =
             $statistics['user_count'] ?? 0;
-
 
         ob_start();
 

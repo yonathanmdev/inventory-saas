@@ -17,7 +17,7 @@ ob_start();
 </div>
 
 <a
-    href="/system-admin/roles/create"
+    href="<?= BASE ?>/system-admin/roles/create"
     class="btn btn-primary"
 >
     <i class="bi bi-shield-plus me-1"></i>
@@ -63,7 +63,7 @@ ob_start();
             </p>
 
             <a
-                href="/system-admin/roles/create"
+                href="<?= BASE ?>/system-admin/roles/create"
                 class="btn btn-primary"
             >
                 <i class="bi bi-plus-lg me-1"></i>
@@ -155,7 +155,7 @@ ob_start();
 
                                 <!-- View / Assign Permissions -->
                                 <a
-                                    href="/system-admin/roles/<?= (int) $role['id'] ?>/permissions"
+                                    href="<?= BASE ?>/system-admin/roles/<?= (int) $role['id'] ?>/permissions"
                                     class="btn btn-outline-primary"
                                     title="Manage permissions"
                                 >
@@ -168,7 +168,7 @@ ob_start();
 
                                     <!-- Edit Role -->
                                     <a
-                                        href="/system-admin/roles/<?= (int) $role['id'] ?>/edit"
+                                        href="<?= BASE ?>/system-admin/roles/<?= (int) $role['id'] ?>/edit"
                                         class="btn btn-outline-secondary"
                                         title="Edit role"
                                     >

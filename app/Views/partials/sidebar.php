@@ -307,7 +307,7 @@ if ($isSystemAdmin) {
 
                 [
                     'key'        => 'products',
-                    'label'      => 'የንብረት ዓይነት',
+                    'label'      => 'የዕቃ ዓይነት',
                     'icon'       => 'box-seam',
                     'href'       => '/products',
                     'permission' => 'products.view',
@@ -319,31 +319,29 @@ if ($isSystemAdmin) {
                 | FUTURE INVENTORY MODULES
                 |--------------------------------------------------------------------------
                 */
+[
+    'key'        => 'stock-in',
+    'label'      => 'ገቢ ደረሰኝ (ሞዴል ፲፱)',
+    'icon'       => 'box-arrow-in-down',
+    'href'       => '/stock-in',
+    'permission' => 'stock_in.view'
+],
 
-                [
-                    'key'        => 'stock-in',
-                    'label'      => 'ገቢ/ሞዴል 19',
-                    'icon'       => 'box-arrow-in-down',
-                    'href'       => '/stock-in',
-                    'permission' => 'stock_in.view',
-                ],
+[
+    'key'        => 'stock-out',
+    'label'      => 'ዕቃ ወጪ መጠየቂያ',
+    'icon'       => 'box-arrow-up',
+    'href'       => '/stock-out/requests',
+    'permission' => 'stock_out.view',
+],
 
-                [
-                    'key'        => 'stock-out',
-                    'label'      => 'ወጭ/ሞዴል 22',
-                    'icon'       => 'box-arrow-up',
-                    'href'       => '/stock-out',
-                    'permission' => 'stock_out.view',
-                ],
-
-                [
-                    'key'        => 'stock-history',
-                    'label'      => 'Stock History',
-                    'icon'       => 'clock-history',
-                    'href'       => '/stock-history',
-                    'permission' => 'stock_history.view',
-                ],
-                
+[
+    'key'        => 'stock-history',
+    'label'      => 'Stock History',
+    'icon'       => 'clock-history',
+    'href'       => '/stock-history',
+    'permission' => 'stock_history.view',
+],
 
             ],
         ],

@@ -911,4 +911,892 @@ textarea:focus-visible {
     padding: 6px;
     background: #fff;
 }
+/* ---------- Model 19 stock-in receipt ---------- */
+.model19 {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 1.5rem 1.75rem;
+    background: #fbfbea;
+    border: 1px solid #c9c9a6;
+    color: #111;
+    font-size: .9rem;
+}
+.model19 small { display: block; font-size: .7rem; color: #444; font-weight: 400; }
 
+.m19-top { display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+.m19-left, .m19-right { flex: 1 1 320px; }
+.m19-model { font-weight: 700; font-style: italic; }
+.m19-org { text-align: center; font-weight: 600; margin: .5rem 0 1rem; }
+.m19-org span { display: block; font-weight: 400; font-size: .8rem; }
+
+.m19-serial { display: flex; align-items: baseline; justify-content: flex-end; gap: .4rem; font-weight: 600; margin-bottom: .75rem; }
+.m19-serial .m19-receipt { flex: 0 0 130px; font-size: 1.1rem; font-weight: 700; color: #b00020; text-align: center; }
+
+.m19-line { display: flex; align-items: baseline; gap: .5rem; margin-bottom: .45rem; }
+.m19-line .lbl { white-space: nowrap; }
+.m19-line input,
+.m19-date select {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    border-bottom: 1px dotted #222;
+    border-radius: 0;
+    background: transparent;
+    padding: .1rem .25rem;
+}
+.m19-date select { flex: 0 0 auto; }
+.m19-date .m19-year { flex: 0 0 80px; }
+.m19-date .m19-from { margin-left: .75rem; }
+
+.m19-title { text-align: center; margin: 1.1rem 0 .9rem; font-weight: 700; font-size: 1.1rem; text-decoration: underline; }
+.m19-title small { text-decoration: none; font-size: .8rem; }
+
+.m19-table { width: 100%; border-collapse: collapse; margin-top: .75rem; }
+.m19-table th, .m19-table td { border: 1px solid #222; padding: 0; vertical-align: middle; }
+.m19-table th { text-align: center; padding: .3rem .25rem; font-weight: 600; background: rgba(0, 0, 0, .03); }
+.m19-table td input, .m19-table td select {
+    width: 100%; min-height: 34px; border: 0; border-radius: 0;
+    background: transparent; padding: .35rem .4rem;
+}
+.m19-table input:focus, .m19-table select:focus,
+.m19-line input:focus, .m19-date select:focus { outline: none; background: #fff8c6; box-shadow: none; }
+
+.m19-table .row-no { width: 44px; text-align: center; }
+.m19-table .col-no { width: 44px; }
+.m19-table .col-sm { width: 100px; }
+.m19-table .col-xs { width: 60px; }
+.m19-table .col-qty { width: 80px; }
+.m19-table .col-money { width: 120px; }
+.m19-table .col-act { width: 36px; border: 0; background: transparent; }
+.m19-table td.no-print { border: 0; }
+.m19-table .price { text-align: right; }
+.m19-table .line-total { padding: .35rem .5rem; text-align: right; font-variant-numeric: tabular-nums; }
+.m19-table tfoot td { padding: .4rem .5rem; font-weight: 700; }
+
+.m19-sign { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-top: 2rem; }
+.m19-sign > * { flex: 1 1 280px; }
+.sign-line { flex: 1; border-bottom: 1px dotted #222; height: 1.6rem; }
+
+@media print {
+    @page { size: A4 portrait; margin: 10mm; }
+    body * { visibility: hidden; }
+    .model19, .model19 * { visibility: visible; }
+    .model19 { position: absolute; top: 0; left: 0; width: 100%; border: 0; background: #fff; }
+    .no-print { display: none !important; }
+    .model19 select { appearance: none; }
+}
+/* ---- scroll + full-value cells ---- */
+.m19-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.m19-table { min-width: 980px; }
+
+.m19-table .col-desc  { min-width: 260px; }
+.m19-table .col-sm    { min-width: 110px; }
+.m19-table .col-xs    { min-width: 80px; }
+.m19-table .col-qty   { min-width: 90px; }
+.m19-table .col-money { min-width: 130px; }
+
+.model19 textarea {
+    font: inherit;
+    resize: none;
+    overflow: hidden;
+    overflow-wrap: anywhere;      /* long serials and names wrap instead of hiding */
+    line-height: 1.35;
+}
+.m19-table td textarea {
+    display: block;
+    width: 100%;
+    min-height: 34px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: .35rem .4rem;
+}
+.m19-line textarea {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    border-bottom: 1px dotted #222;
+    border-radius: 0;
+    background: transparent;
+    padding: .1rem .25rem;
+}
+.m19-table textarea:focus,
+.m19-line textarea:focus { outline: none; background: #fff8c6; box-shadow: none; }
+
+/* remove the number spinners that cover digits */
+.m19-table .qty { text-align: center; -moz-appearance: textfield; appearance: textfield; }
+.m19-table .qty::-webkit-outer-spin-button,
+.m19-table .qty::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+.m19-table .line-total, #grandTotal { white-space: nowrap; }
+
+.sel-text { display: none; }          /* shown only when printing */
+
+/* ---- small screens ---- */
+@media (max-width: 767.98px) {
+    .model19 { padding: 1rem; }
+    .m19-serial { justify-content: flex-start; flex-wrap: wrap; }
+    .m19-line { flex-direction: column; align-items: stretch; gap: .15rem; }
+    .m19-line .lbl { white-space: normal; }
+    .m19-date { flex-wrap: wrap; }
+    .m19-date .m19-from { margin-left: 0; }
+}
+.m19-dept {
+    flex: 1;
+    min-width: 0;
+    padding: .1rem .25rem;
+    border-bottom: 1px dotted #222;
+    overflow-wrap: anywhere;
+}
+.m19-dept-am,
+.m19-dept-en { display: block; }
+.m19-dept-am { font-weight: 600; }
+.m19-dept-en { font-size: .8rem; color: #444; }
+/* ---- read-only receipt ---- */
+.m19-val {
+    flex: 1;
+    min-width: 0;
+    min-height: 1.5em;
+    padding: .1rem .25rem;
+    border-bottom: 1px dotted #222;
+    overflow-wrap: anywhere;
+}
+.m19-val.inline { flex: 0 1 auto; padding: .1rem .75rem; font-weight: 600; }
+.m19-receipt-view { font-size: 1.1rem; font-weight: 700; color: #b00020; }
+
+.m19-table.ro td { padding: .35rem .5rem; vertical-align: top; overflow-wrap: anywhere; }
+.m19-table.ro .ctr { text-align: center; }
+.m19-table.ro .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* list page */
+.search-input { min-width: 260px; }
+.empty-icon { font-size: 3.5rem; }
+.cell-wrap { overflow-wrap: anywhere; min-width: 140px; }
+.m19-table .col-qty { min-width: 115px; }
+
+/* =========================================================
+   STOCK-OUT REQUEST FORM
+   ========================================================= */
+   /* ---------- Model 20: stock-out request ---------- */
+.m20-pages { max-width: 210mm; margin: 0 auto; }
+
+.m20-sheet {
+    display: flex;
+    flex-direction: column;
+    min-height: 268mm;
+    margin-bottom: 1.5rem;
+    padding: 10mm 12mm;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
+    color: #111;
+    font-size: .95rem;
+}
+.m20-sheet small { display: block; font-size: .68rem; color: #555; font-weight: 400; }
+
+/* header box: logo | institution + title | page no + date */
+/* header box: matches the paper form */
+.m20-head {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-bottom: .7rem;
+    font-family: 'Times New Roman', 'Noto Serif Ethiopic', Nyala, serif;
+}
+.m20-head col.c1 { width: 22%; }
+.m20-head col.c2 { width: 39%; }
+.m20-head col.c3 { width: 8%; }
+.m20-head col.c4 { width: 31%; }
+
+.m20-head td {
+    border: 1px solid #222;
+    padding: .1rem .5rem;
+    vertical-align: top;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+.m20-head .r1 { height: 12mm; }
+.m20-head .r2 { height: 7.5mm; }
+.m20-head .r3 { height: 5.5mm; }
+
+.m20-head .hl  { display: block; font-size: .7rem; }
+.m20-head .am  { font-weight: 700; font-size: .85rem; }
+.m20-head .en  { font-family: Arial, Helvetica, sans-serif; font-weight: 600; font-size: .8rem; }
+.m20-head .val { font-size: .85rem; font-weight: 600; }
+
+.m20-logo { text-align: center; vertical-align: middle; padding: .2rem; }
+.m20-logo img { display: block; max-width: 100%; max-height: 17mm; margin: 0 auto; }
+.m20-logo-foot { padding: 0; }
+.m20-inst .am, .m20-inst .en { text-align: center; }
+.m20-title .model { padding-left: 2.2rem; }
+.m20-docno, .m20-pageno { text-align: center; }
+
+/* date line under the box */
+.m20-dateline {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    min-height: 1.4rem;
+    margin-bottom: 1rem;
+}
+.m20-ref { font-size: .8rem; }
+.m20-date { white-space: nowrap; margin-left: auto; }
+.m20-date select, .m20-date input {
+    width: auto; border: 0; border-bottom: 1px dotted #222; border-radius: 0;
+    background: transparent; padding: 0 .15rem; font: inherit;
+}
+.m20-date .yr { width: 4.4rem; }
+.m20-date select:focus, .m20-date input:focus { outline: none; background: #fff8c6; }
+/* body text */
+.m20-instline { font-weight: 700; margin-bottom: .35rem; }
+.m20-place { margin-bottom: .75rem; min-height: 1.4rem; }
+.m20-body { text-align: justify; line-height: 2; margin-bottom: .8rem; }
+.m20-in {
+    border: 0; border-bottom: 1px dotted #222; border-radius: 0;
+    background: transparent; padding: 0 .25rem; font: inherit;
+}
+.m20-in:focus { outline: none; background: #fff8c6; }
+.m20-in-place { width: 10rem; }
+.m20-in-name  { width: 16rem; max-width: 100%; }
+.m20-in-unit  { width: 14rem; max-width: 100%; }
+.m20-val { border-bottom: 1px dotted #222; padding: 0 .35rem; font-weight: 600; overflow-wrap: anywhere; }
+
+/* items table */
+.m20-table { width: 100%; border-collapse: collapse; min-width: 620px; }
+.m20-table th, .m20-table td { border: 1px solid #222; padding: 0; vertical-align: middle; }
+.m20-table th { padding: .25rem .3rem; text-align: center; font-weight: 600; font-size: .82rem; }
+.m20-table td input, .m20-table td select {
+    width: 100%; min-height: 30px; border: 0; border-radius: 0;
+    background: transparent; padding: .2rem .35rem; font: inherit;
+}
+.m20-table input:focus, .m20-table select:focus { outline: none; background: #fff8c6; box-shadow: none; }
+.m20-table .row-no { text-align: center; }
+.m20-table .c-no { width: 44px; }
+.m20-table .c-qty { width: 84px; }
+.m20-table .c-model { width: 120px; }
+.m20-table .c-rem { min-width: 150px; }
+.m20-table .c-act { width: 36px; border: 0; background: transparent; }
+.m20-table td.no-print { border: 0; }
+.m20-table .qty { text-align: center; -moz-appearance: textfield; appearance: textfield; }
+.m20-table .qty::-webkit-outer-spin-button,
+.m20-table .qty::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.m20-table.ro td { padding: .15rem .4rem; height: 7mm; overflow-wrap: anywhere; }
+.m20-table.ro .ctr { text-align: center; }
+
+/* signatures and footer */
+/* ============================================================
+   Model 20 - Signatures
+   ============================================================ */
+
+.m20-sign {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: .9rem 0 1.5rem;
+    width: 100%;
+}
+
+.m20-sign > div {
+    min-width: 0;
+}
+
+.m20-sign .cap {
+    font-weight: 600;
+    font-size: .85rem;
+    margin-bottom: .4rem;
+}
+
+.m20-sline {
+    display: flex;
+    align-items: flex-end;
+    gap: .4rem;
+    min-height: 1.7rem;
+    margin-bottom: .45rem;
+}
+
+.m20-sline .lbl {
+    min-width: 2.6rem;
+}
+
+.m20-sline .v {
+    flex: 1;
+    min-width: 0;
+    min-height: 1.3rem;
+    padding: 0 .25rem;
+    border-bottom: 1px dotted #222;
+    overflow-wrap: anywhere;
+}
+
+/* Smaller screens */
+@media (max-width: 600px) {
+    .m20-sign {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .m20-sign .cap {
+        font-size: .75rem;
+    }
+
+    .m20-sline {
+        font-size: .8rem;
+    }
+}
+/* ============================================================
+   Model 20 - Signature section
+   ============================================================ */
+
+.m20-sign {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+    width: 100%;
+    margin: .9rem 0 1.5rem;
+    box-sizing: border-box;
+}
+
+.m20-sign > div {
+    min-width: 0;
+}
+
+.m20-sign .cap {
+    font-weight: 600;
+    font-size: .85rem;
+    margin-bottom: .4rem;
+}
+
+.m20-sline {
+    display: flex;
+    align-items: flex-end;
+    gap: .4rem;
+    min-height: 1.7rem;
+    margin-bottom: .45rem;
+}
+
+.m20-sline .lbl {
+    flex: 0 0 auto;
+    min-width: 2.6rem;
+}
+
+.m20-sline .v {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 1.3rem;
+    padding: 0 .25rem;
+    border-bottom: 1px dotted #222;
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   PRINT
+   Keep both signature sections side-by-side
+   ============================================================ */
+
+@media print {
+
+    .m20-sign {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        column-gap: 2rem !important;
+        width: 100% !important;
+        margin: .9rem 0 1.5rem !important;
+        box-sizing: border-box !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .m20-sign > div {
+        width: auto !important;
+        min-width: 0 !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .m20-sline {
+        display: flex !important;
+        align-items: flex-end !important;
+        width: 100% !important;
+    }
+} 
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}
+
+.m20-foot {
+    margin-top: auto;
+    padding-top: .5rem;
+    border-top: 3px solid #111;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    font-size: .85rem;
+}
+
+@media (max-width: 767.98px) {
+    .m20-sheet { padding: 1rem; min-height: 0; }
+    .m20-date { white-space: normal; }
+    .m20-sign { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+@media print {
+    .m20-pages, .m20-pages * { visibility: visible; }
+    .m20-pages { position: absolute; top: 0; left: 0; width: 100%; max-width: none; }
+    .m20-sheet {
+        min-height: 268mm; margin: 0; padding: 0;
+        border: 0; box-shadow: none;
+        page-break-after: always; break-after: page;
+    }
+    .m20-sheet:last-child { page-break-after: auto; break-after: auto; }
+    .m20-sheet select { appearance: none; }
+    .m20-table { min-width: 0; }
+}
+
+/* ============================================================
+   Ethiopian Date Picker
+   Moved out of JavaScript for CSP compliance
+   ============================================================ */
+
+
+/* ============================================================
+   Calendar Popup
+   ============================================================ */
+
+.eth-cal-popup {
+    position: fixed;
+    display: none;
+
+    width: 320px;
+    max-width: calc(100vw - 20px);
+
+    padding: 12px;
+
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+
+    z-index: 999999;
+
+    font-family: 'Segoe UI', sans-serif;
+
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   Calendar Header
+   ============================================================ */
+
+.cal-head {
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 8px;
+
+    background: #1A1208;
+    color: #C8962A;
+
+    border-radius: 5px;
+
+    box-sizing: border-box;
+}
+
+.cal-nav {
+    color: #C8962A;
+    background: none;
+    border: 0;
+
+    cursor: pointer;
+
+    font-size: 20px;
+    line-height: 1;
+
+    padding: 2px 6px;
+}
+
+.cal-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    min-width: 0;
+
+    text-align: center;
+}
+
+.cal-title span {
+    cursor: pointer;
+}
+
+
+/* ============================================================
+   Calendar Days
+   ============================================================ */
+
+.grid-days {
+    display: grid;
+
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+
+    gap: 2px;
+
+    margin-top: 10px;
+
+    text-align: center;
+
+    width: 100%;
+}
+
+.grid-days div {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    min-height: 30px;
+
+    padding: 6px 0;
+
+    border-radius: 4px;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+}
+
+.grid-days div:hover {
+    background: #eee;
+}
+
+.grid-days .today {
+    outline: 2px solid #C8962A;
+
+    font-weight: bold;
+
+    background: #fff9eb;
+}
+
+.grid-days .selected-day {
+    background: #C8962A;
+
+    color: #fff;
+
+    font-weight: bold;
+}
+
+.grid-days .empty {
+    cursor: default;
+    pointer-events: none;
+}
+
+.cal-weekdays {
+    color: #666;
+
+    font-size: 11px;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   Month / Year Dropdown
+   ============================================================ */
+
+.drop-list {
+    position: absolute;
+
+    display: none;
+
+    width: 100px;
+    max-width: calc(100% - 20px);
+
+    max-height: 180px;
+
+    overflow-y: auto;
+
+    background: #fff;
+    color: #111;
+
+    border: 1px solid #ddd;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+    z-index: 1000000;
+
+    box-sizing: border-box;
+}
+
+.drop-list.right {
+    right: 10px;
+}
+
+.drop-list div {
+    padding: 4px 8px;
+
+    cursor: pointer;
+}
+
+.drop-list div:hover {
+    background: #eee;
+}
+
+/* ============================================================
+   Ethiopian Date Field
+   ============================================================ */
+
+.ec-date-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.ec-date-input {
+    display: block;
+
+    width: 160px;
+    max-width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+    text-align: center;
+
+    /* Underline only */
+    border: 0;
+    border-bottom: 1px solid #222;
+    border-radius: 0;
+
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+
+    padding: 2px 4px;
+    height: 28px;
+}
+
+.ec-date-input:focus {
+    border: 0;
+    border-bottom: 1px solid #222;
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+}
+
+
+/* ============================================================
+   M19 Date Field
+   ============================================================ */
+
+.m19-date .ethiopian-date {
+    display: block;
+
+    width: 160px;
+    max-width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+    text-align: center;
+
+    /* Underline only */
+    border: 0;
+    border-bottom: 1px solid #222;
+    border-radius: 0;
+
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+
+    padding: 2px 4px;
+    height: 28px;
+}
+
+
+/* ============================================================
+   M20 Date Field
+   ============================================================ */
+
+.m20-date .ethiopian-date {
+    display: block;
+
+    width: 160px;
+    max-width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+    text-align: center;
+
+    /* Underline only */
+    border: 0;
+    border-bottom: 1px solid #222;
+    border-radius: 0;
+
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+
+    padding: 2px 4px;
+    height: 28px;
+}
+
+
+/* ============================================================
+   Tablet
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+    .eth-cal-popup {
+        width: 320px;
+        max-width: calc(100vw - 20px);
+    }
+
+    .ec-date-wrapper {
+        justify-content: flex-end;
+    }
+
+    .ec-date-input,
+    .m19-date .ethiopian-date,
+    .m20-date .ethiopian-date {
+        width: 150px;
+        max-width: 100%;
+    }
+}
+
+
+/* ============================================================
+   Mobile
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    .eth-cal-popup {
+        width: calc(100vw - 20px);
+        max-width: calc(100vw - 20px);
+        padding: 10px;
+    }
+
+    .ec-date-wrapper {
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .ec-date-input,
+    .m19-date .ethiopian-date,
+    .m20-date .ethiopian-date {
+        width: 100%;
+        max-width: 160px;
+    }
+
+    .grid-days div {
+        min-height: 28px;
+        padding: 5px 0;
+        font-size: 12px;
+    }
+
+    .cal-weekdays {
+        font-size: 10px;
+    }
+
+    .cal-nav {
+        font-size: 18px;
+    }
+}
+
+
+/* ============================================================
+   Very Small Mobile
+   ============================================================ */
+
+@media (max-width: 360px) {
+
+    .eth-cal-popup {
+        width: calc(100vw - 12px);
+        max-width: calc(100vw - 12px);
+        padding: 8px;
+    }
+
+    .ec-date-input,
+    .m19-date .ethiopian-date,
+    .m20-date .ethiopian-date {
+        max-width: 145px;
+    }
+
+    .grid-days {
+        gap: 1px;
+    }
+
+    .grid-days div {
+        min-height: 26px;
+        padding: 4px 0;
+        font-size: 11px;
+    }
+
+    .cal-weekdays {
+        font-size: 9px;
+    }
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}
+.screen-only {
+    display: block;
+}
+
+.print-only {
+    display: none;
+}
+
+@media print {
+    .screen-only {
+        display: none !important;
+    }
+
+    .print-only {
+        display: inline !important;
+    }
+}
+.m19-date { flex-wrap: wrap; }
+.m19-date input[name="supplier_name"] { min-width: 12rem; }
+.m19-date select { max-width: 9rem; }
+
+.global-page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 99999;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+.global-page-loader.active {
+    display: flex;
+}
+/* ስፒነሩን ትልቅ ለማድረግ የሚረዳ የ CSS ክላስ (ከ CSP ደንብ ጋር የሚጣጣም) */
+.global-page-loader .spinner-border {
+    width: 3rem;
+    height: 3rem;
+}

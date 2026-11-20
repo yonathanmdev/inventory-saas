@@ -1,0 +1,365 @@
+/* =================================================
+   MODEL 22: SCREEN AND PRINT STYLES
+   Used by: Views/stock-out/model22.php (print form)
+            Views/stock-out/issue.php (batch input width only)
+   Everything is scoped to the form, so it cannot change the dashboard.
+   ================================================= */
+
+/* ---------- Form container ---------- */
+.model22-container {
+    font-family: 'Nyala', 'DejaVu Sans', Arial, sans-serif;
+    font-size: 13px;
+    color: #000;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 25px;
+    border: 2px solid #2e7d32;
+    background: #f1f8e9;               /* light green tint of the official form */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+/* ---------- Header: Model 22 | logo + heading + department | number ---------- */
+.m22-head {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: start;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.m22-model {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.m22-model small {
+    display: block;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+.m22-head-center {
+    text-align: center;
+}
+
+.m22-logo {
+    display: block;
+    height: 56px;
+    margin: 0 auto 4px;
+}
+
+.m22-heading-am {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1b5e20;
+}
+
+.m22-heading-en {
+    margin-top: 2px;
+    font-size: 11px;
+    color: #333;
+}
+
+.m22-dept {
+    margin: 8px auto 0;
+    max-width: 280px;
+}
+
+.m22-dept-value {
+    min-height: 20px;
+    border-bottom: 1px dotted #000;
+    font-weight: bold;
+}
+
+.m22-dept-label {
+    font-size: 11px;
+}
+
+.m22-dept-label small {
+    font-size: 10px;
+    color: #333;
+}
+
+.m22-head-right {
+    text-align: right;
+    font-size: 15px;
+}
+
+.m22-no-label {
+    font-weight: bold;
+}
+
+.m22-no-value {
+    font-weight: bold;
+    color: #d32f2f;       /* the number is printed in red on the paper form */
+    letter-spacing: 1px;
+}
+.m22-region-am {
+    font-size: 15px;
+    font-weight: bold;
+    color: #1b5e20;
+}
+
+.m22-region-en {
+    margin-bottom: 4px;
+    font-size: 11px;
+    color: #333;
+}
+/* ---------- Top block ---------- */
+.m22-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #000;
+}
+
+.m22-left {
+    flex: 1;
+}
+
+.m22-right {
+    width: 350px;
+}
+
+.m22-model {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.m22-org {
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.m22-org span {
+    display: block;
+}
+
+.m22-org .text-muted {
+    font-weight: normal;
+    font-size: 11px;
+    color: #444 !important;
+}
+
+.m22-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+
+.m22-line .lbl {
+    flex: 1;
+}
+
+.field-line {
+    display: inline-block;
+    min-width: 180px;
+    padding: 0 10px;
+    border-bottom: 1px dotted #000;
+    font-weight: bold;
+}
+
+/* ---------- Title ---------- */
+.m22-title {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.m22-title h2 {
+    margin: 0;
+    font-size: 18px;
+    text-decoration: underline;
+    color: #1b5e20;
+}
+
+.m22-title small {
+    display: block;
+    font-size: 12px;
+    color: #555;
+}
+
+.m22-meta {
+    margin: 15px 0;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* ---------- Table ---------- */
+.m22-scroll {
+    margin-top: 15px;
+    overflow-x: auto;
+}
+
+.m22-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.m22-table th,
+.m22-table td {
+    padding: 6px 4px;
+    border: 1px solid #000;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.m22-table th {
+    background: #dcedc8;
+    font-weight: bold;
+}
+
+.m22-table th small {
+    display: block;
+    font-weight: normal;
+    font-size: 10px;
+    color: #333;
+}
+
+/* Column widths (12 columns: no, description, model, serial, page from/to,
+   quantity, unit price birr/cents, total price birr/cents, remarks) */
+.m22-table .col-no     { width: 36px; }
+.m22-table .col-xs     { width: 48px; }
+.m22-table .col-qty    { width: 70px; }
+.m22-table .col-sm     { width: 80px; }
+.m22-table .col-desc   { min-width: 160px; }
+.m22-table .col-serial { min-width: 120px; }
+.m22-table .col-remark { min-width: 90px; }
+
+/* ---------- Signatures ---------- */
+/* ---------- Signatures: both parties on ONE row ---------- */
+.m22-signatures {
+    display: flex;
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.m22-sig-party {
+    flex: 1;                         /* two equal halves */
+    display: flex;
+    align-items: flex-end;           /* label, name and line share one baseline */
+    gap: 8px;
+    min-width: 0;
+}
+
+.m22-sig-label {
+    flex: 0 0 auto;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.m22-sig-label small {
+    display: block;
+    font-weight: normal;
+    font-size: 10px;
+    color: #333;
+}
+
+.m22-sig-name {
+    flex: 0 1 140px;
+    padding: 0 4px;
+    border-bottom: 1px dotted #000;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.m22-sig-line {
+    flex: 1;                         /* the rest of each half is the signature place */
+    min-width: 70px;
+    min-height: 34px;
+    border-bottom: 1px solid #000;
+}
+
+.m22-footer-note {
+    margin-top: 25px;
+    padding-top: 8px;
+    border-top: 1px solid #ccc;
+    font-size: 11px;
+    color: #333;
+}
+
+/* ---------- issue.php (batch quantity input) ---------- */
+.batch-qty {
+    width: 90px;
+}
+
+/* =================================================
+   PRINT
+   ================================================= */
+@page {
+    size: A4 landscape;                /* 12 columns do not fit well in portrait */
+    margin: 10mm;
+}
+
+@media print {
+    body {
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .model22-container {
+        max-width: 100%;
+        padding: 0;
+        border: none;
+        background: #fff;
+        box-shadow: none;
+    }
+
+    .m22-scroll {
+        overflow: visible;             /* wide tables are clipped on paper otherwise */
+    }
+
+    .m22-table tr {
+        page-break-inside: avoid;
+    }
+
+    .m22-table thead {
+        display: table-header-group;   /* repeat the headings on every page */
+    }
+
+    .m22-table tfoot {
+        display: table-row-group;      /* print the total once, at the end */
+    }
+
+    .m22-signatures {
+        page-break-inside: avoid;      /* keep both signature boxes together */
+    }
+}
+.m22-toolbar {
+    display: flex;
+    justify-content: space-between;
+    max-width: 900px;
+    margin: 0 auto 16px;
+}
+
+.m22-note {
+    margin-top: 8px;
+    font-size: 11px;
+    color: #555;
+}
+
+.cell-left  { text-align: left !important; padding-left: 8px !important; }
+.cell-right { text-align: right !important; padding-right: 8px !important; }
+.cell-sub   { font-size: 11px; color: #555; }
+
+body { margin: 0; padding: 20px; background: #f8f9fa; }
+
+@media print {
+    body { padding: 0; background: #fff; }
+}

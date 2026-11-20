@@ -56,7 +56,7 @@ class AuthController
             $_SESSION['old_username'] = $username;
 
             return $response
-                ->withHeader('Location', '/login')
+                ->withHeader('Location', BASE . '/login')
                 ->withStatus(302);
         }
 
@@ -66,12 +66,12 @@ class AuthController
          */
         if (AuthHelper::isSystemAdmin()) {
             return $response
-                ->withHeader('Location', '/system-admin')
+                ->withHeader('Location', BASE . '/system-admin')
                 ->withStatus(302);
         }
 
         return $response
-            ->withHeader('Location', '/dashboard')
+            ->withHeader('Location', BASE . '/dashboard')
             ->withStatus(302);
     }
 
@@ -85,7 +85,7 @@ class AuthController
         AuthHelper::logout();
 
         return $response
-            ->withHeader('Location', '/login')
+            ->withHeader('Location', BASE . '/login')
             ->withStatus(302);
     }
 }

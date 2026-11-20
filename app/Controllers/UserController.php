@@ -423,6 +423,7 @@ class UserController
 
     return $response;
 }
+
 public function deactivate(
     Request $request,
     Response $response,
@@ -433,7 +434,7 @@ public function deactivate(
     if ($uuid === '') {
         FlashHelper::error('Invalid user.');
         return $response
-            ->withHeader('Location', '/users')
+            ->withHeader('Location', BASE . '/users')
             ->withStatus(302);
     }
 
@@ -487,7 +488,7 @@ public function activate(
         );
 
         return $response
-            ->withHeader('Location', '/users')
+            ->withHeader('Location', BASE . '/users')
             ->withStatus(302);
     }
 

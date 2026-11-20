@@ -2,6 +2,7 @@ Options -Indexes -MultiViews
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteBase /inventory/
 
     # Send everything that is not a real file to Slim
     RewriteCond %{REQUEST_FILENAME} !-f

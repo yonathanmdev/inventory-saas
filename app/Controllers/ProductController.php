@@ -40,7 +40,7 @@ class ProductController
     // Inactive / all lists require the delete (trash) permission
     if ($status !== 'active' && !PermissionHelper::can('products.delete')) {
         return $response
-            ->withHeader('Location', '/products')
+            ->withHeader('Location', BASE . '/products')
             ->withStatus(302);
     }
 
@@ -208,7 +208,7 @@ private function csvSafe(?string $value): string
             );
 
             return $response
-                ->withHeader('Location', '/products')
+                ->withHeader('Location', BASE . '/products')
                 ->withStatus(302);
         }
 
@@ -228,7 +228,7 @@ private function csvSafe(?string $value): string
             $_SESSION['old'] = $data;
 
             return $response
-                ->withHeader('Location', '/products/create')
+                ->withHeader('Location', BASE . '/products/create')
                 ->withStatus(302);
         }
 
@@ -239,7 +239,7 @@ private function csvSafe(?string $value): string
 
 
         return $response
-            ->withHeader('Location', '/products')
+            ->withHeader('Location', BASE . '/products')
             ->withStatus(302);
     }
 
@@ -261,7 +261,7 @@ private function csvSafe(?string $value): string
             FlashHelper::error('Invalid product.');
 
             return $response
-                ->withHeader('Location', '/products')
+                ->withHeader('Location', BASE . '/products')
                 ->withStatus(302);
         }
 
@@ -276,7 +276,7 @@ private function csvSafe(?string $value): string
             FlashHelper::error('Product not found.');
 
             return $response
-                ->withHeader('Location', '/products')
+                ->withHeader('Location', BASE . '/products')
                 ->withStatus(302);
         }
 
@@ -319,7 +319,7 @@ private function csvSafe(?string $value): string
             FlashHelper::error('Invalid product.');
 
             return $response
-                ->withHeader('Location', '/products')
+                ->withHeader('Location', BASE . '/products')
                 ->withStatus(302);
         }
 
@@ -353,7 +353,7 @@ private function csvSafe(?string $value): string
 
 
         return $response
-            ->withHeader('Location', '/products')
+            ->withHeader('Location', BASE . '/products')
             ->withStatus(302);
     }
 
@@ -375,7 +375,7 @@ private function csvSafe(?string $value): string
             FlashHelper::error('Invalid product.');
 
             return $response
-                ->withHeader('Location', '/products')
+                ->withHeader('Location', BASE . '/products')
                 ->withStatus(302);
         }
 
@@ -394,7 +394,7 @@ private function csvSafe(?string $value): string
 
 
         return $response
-            ->withHeader('Location', '/products')
+            ->withHeader('Location', BASE . '/products')
             ->withStatus(302);
     }
 
@@ -416,7 +416,7 @@ private function csvSafe(?string $value): string
             FlashHelper::error('Invalid product.');
 
             return $response
-                ->withHeader('Location', '/products')
+                ->withHeader('Location', BASE . '/products')
                 ->withStatus(302);
         }
 
@@ -435,7 +435,7 @@ private function csvSafe(?string $value): string
 
 
         return $response
-            ->withHeader('Location', '/products')
+            ->withHeader('Location', BASE . '/products')
             ->withStatus(302);
     }
 }

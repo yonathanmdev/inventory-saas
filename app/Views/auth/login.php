@@ -22,7 +22,7 @@ $csrfToken = $_SESSION['csrf_token'];
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
-<link rel="stylesheet" href="/assets/css/login.css">
+<link rel="stylesheet" href="<?= BASE ?>/assets/css/login.css">
     <title>Sign In | Property Management</title>
 </head>
 
@@ -112,7 +112,7 @@ $csrfToken = $_SESSION['csrf_token'];
 
                 <form
                     method="POST"
-                    action="/login"
+                    action="<?= BASE ?>/login"
                     id="loginForm"
                     novalidate
                 >
@@ -233,7 +233,7 @@ $csrfToken = $_SESSION['csrf_token'];
                         </label>
 
                         <a
-                            href="/forgot-password"
+                            href="<?= BASE ?>/forgot-password"
                             class="forgot-link"
                         >
                             Forgot password?
@@ -274,6 +274,6 @@ $csrfToken = $_SESSION['csrf_token'];
 
 </main>
 
-<script src="/assets/js/login.js" defer></script>
+<script src="<?= BASE ?>/assets/js/login.js" defer></script>
 </body>
 </html>

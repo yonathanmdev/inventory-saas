@@ -16,7 +16,7 @@ ob_start();
     </div>
 
     <a
-        href="/system-admin/businesses"
+        href="<?= BASE ?>/system-admin/businesses"
         class="btn btn-outline-secondary"
     >
         <i class="bi bi-arrow-left"></i>
@@ -52,7 +52,7 @@ ob_start();
 
         <form
             method="POST"
-            action="/system-admin/businesses"
+            action="<?= BASE ?>/system-admin/businesses"
              enctype="multipart/form-data"
         >
 
@@ -71,7 +71,7 @@ ob_start();
 
                     <input
                         type="text"
-                        name="nameAmharic"
+                        name="name_amharic"
                         class="form-control"
                         required
                         maxlength="150"
@@ -180,7 +180,7 @@ ob_start();
             <div class="d-flex justify-content-end gap-2">
 
                 <a
-                    href="/system-admin/businesses"
+                    href="<?= BASE ?>/system-admin/businesses"
                     class="btn btn-secondary"
                 >
                     Cancel

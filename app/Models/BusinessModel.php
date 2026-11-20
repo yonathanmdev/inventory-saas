@@ -16,6 +16,7 @@ public function create(array $data): int
         INSERT INTO businesses (
             uuid,
             name,
+            name_amharic,
             email,
             phone,
             address,
@@ -26,6 +27,7 @@ public function create(array $data): int
         VALUES (
             :uuid,
             :name,
+            :name_amharic,
             :email,
             :phone,
             :address,
@@ -40,6 +42,7 @@ public function create(array $data): int
     $stmt->execute([
         'uuid'        => $data['uuid'],
         'name'        => $data['name'],
+        'name_amharic' => $data['name_amharic'],
         'email'       => $data['email'],
         'phone'       => $data['phone'],
         'address'     => $data['address'],
@@ -58,6 +61,7 @@ public function update(int $id, array $data): bool
         UPDATE businesses
         SET
             name = :name,
+            name_amharic = :name_amharic,
             email = :email,
             phone = :phone,
             address = :address,
@@ -71,6 +75,7 @@ public function update(int $id, array $data): bool
     return $stmt->execute([
         'id'          => $id,
         'name'        => $data['name'],
+        'name_amharic' => $data['name_amharic'],
         'email'       => $data['email'],
         'phone'       => $data['phone'],
         'address'     => $data['address'],
